@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Req, Query, Body, HttpCode } from '@nestjs/common';
+import { PlaylistService } from './playlist.service';
 import { Request } from 'express';
 
 interface Response {
@@ -14,6 +15,9 @@ class CreatePlaylist {
 
 @Controller('playlist')
 export class PlaylistController {
+	constructor(private readonly playlistService: PlaylistService) {
+
+	}
 
 	@Get()
 	getData(@Query('name') name: string): any {
@@ -21,7 +25,7 @@ export class PlaylistController {
 			status: 200,
 			data: name
 		}
-		return res;
+		return this.playlistService.getPlaylistName(name);
 	}
 
 	@Post()
