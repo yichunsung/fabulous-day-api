@@ -9,8 +9,7 @@ interface Response {
 
 class CreatePlaylist {
 	public title: string;
-	public age: number;
-	public isCheck: boolean;
+	public description: string; 
 }
 
 @Controller('playlist')
@@ -35,11 +34,12 @@ export class PlaylistController {
 			let res = this.errorUntoken(requestBody);
 			return res;
 		} else {
+			/*
 			let res: Response = {
 				status: 200,
 				data: requestBody
-			}
-			return res;
+			}*/
+			return this.playlistService.appendNewPlaylist(requestBody);
 		}
 		
 	}
