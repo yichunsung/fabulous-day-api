@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Req, Query, Body, HttpCode } from '@nestjs/common';
+import { PlaylistService } from './playlist.service';
 import { Request } from 'express';
 
 interface Response {
@@ -8,12 +9,14 @@ interface Response {
 
 class CreatePlaylist {
 	public title: string;
-	public age: number;
-	public isCheck: boolean;
+	public description: string; 
 }
 
 @Controller('playlist')
 export class PlaylistController {
+	constructor(private readonly playlistService: PlaylistService) {
+
+	}
 
 	@Get()
 	getData(@Query('name') name: string): any {
@@ -21,7 +24,7 @@ export class PlaylistController {
 			status: 200,
 			data: name
 		}
-		return res;
+		return this.playlistService.getPlaylistName(name);
 	}
 
 	@Post()
@@ -31,11 +34,12 @@ export class PlaylistController {
 			let res = this.errorUntoken(requestBody);
 			return res;
 		} else {
+			/*
 			let res: Response = {
 				status: 200,
 				data: requestBody
-			}
-			return res;
+			}*/
+			return this.playlistService.appendNewPlaylist(requestBody);
 		}
 		
 	}
