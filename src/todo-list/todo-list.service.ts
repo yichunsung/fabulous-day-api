@@ -15,8 +15,6 @@ export class TodoListService {
 	}
 
 	findInformation(id: number) {
-		console.log(this.todoList);
-		console.log(this.todoList.filter(e=>e.id === Number(id)));
 		return this.todoList.filter(e=>e.id === Number(id)).length > 0 ? this.todoList.filter(e=>e.id === Number(id))[0] : [];
 	}
 
